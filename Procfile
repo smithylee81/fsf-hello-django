@@ -1,1 +1,1 @@
-web: gunicorn django_firstp.wsgi:application
+web: gunicorn django_ffirstp.wsgi:application
