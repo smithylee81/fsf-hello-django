@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
+
 from pathlib import Path
 import dj_database_url 
 
@@ -21,12 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3ic^_%%hh4_a86fj&wg(f&$j)ks2godsnd!lnpeymblwxfrj_8'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-3ic^_%%hh4_a86fj&wg(f&$j)ks2godsnd!lnpeymblwxfrj_8')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lornilee-django-firstp-app.herokuapp.com']
+ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
+
+# lornilee-django-firstp-app.herokuapp.com
 
 
 # Application definition
@@ -84,9 +88,10 @@ WSGI_APPLICATION = 'django_ffirstp.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.parse('postgres://ekbjqeddeclnlf:67c54a976b2b31b9511b0e9e00ef2bb4c73db5a504e701b243ca25538dabb405@ec2-35-168-194-15.compute-1.amazonaws.com:5432/d31fb7ft20qvli')
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
+# postgres://ekbjqeddeclnlf:67c54a976b2b31b9511b0e9e00ef2bb4c73db5a504e701b243ca25538dabb405@ec2-35-168-194-15.compute-1.amazonaws.com:5432/d31fb7ft20qvli
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
