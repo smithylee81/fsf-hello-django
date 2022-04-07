@@ -11,11 +11,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+if os.path.exists("env.py"):
+    import env
+
 
 #from pathlib import Path
 import dj_database_url 
 
-development = os.environ.get('DEVELOPMENT', False)
+development = os.environ.get('DEVELOPMENT', "False")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -78,6 +81,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'django_ffirstp.wsgi.application'
 
 
@@ -88,12 +92,12 @@ if development:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
 else:
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+       'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 
 # postgres://ekbjqeddeclnlf:67c54a976b2b31b9511b0e9e00ef2bb4c73db5a504e701b243ca25538dabb405@ec2-35-168-194-15.compute-1.amazonaws.com:5432/d31fb7ft20qvli
